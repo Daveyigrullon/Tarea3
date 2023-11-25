@@ -1,0 +1,38 @@
+﻿@page "/arregloInversion"
+
+<h3>Inversión de Arreglo</h3>
+
+<div>
+    <label for="inputNumbers">Ingrese números separados por comas:</label>
+    <input type="text" id="inputNumbers" @bind="inputNumbers" />
+</div>
+<button @onclick="InvertirArreglo" class="btn btn-primary">Invertir Arreglo</button>
+
+@if (arregloInvertido != null)
+{
+    <div>
+        <h4>Arreglo Invertido:</h4>
+        <p>@string.Join(", ", arregloInvertido)</p>
+    </div>
+}
+@code {
+    private string inputNumbers = "";
+    private int[] arregloInvertido;
+
+    private void InvertirArreglo()
+    {
+        int[] numeros = inputNumbers.Split(',').Select(int.Parse).ToArray();
+
+        int n = numeros.Length;
+
+        for (int i = 0; i < n / 2; i++)
+        {
+            int temp = numeros[i];
+            numeros[i] = numeros[n - 1 - i];
+            numeros[n - 1 - i] = temp;
+        }
+
+        arregloInvertido = numeros;
+    }
+}
+

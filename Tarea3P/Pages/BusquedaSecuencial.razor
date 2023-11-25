@@ -1,0 +1,53 @@
+﻿@page "/busquedasecuencial"
+
+<h3>Búsqueda Secuencial</h3>
+
+<div>
+    <label for="inputArray">Arreglo de números (separados por comas):</label>
+    <input type="text" id="inputArray" @bind="inputArray" />
+</div>
+<div>
+    <label for="numeroABuscar">Número a buscar:</label>
+    <input type="number" id="numeroABuscar" @bind="numeroABuscar" />
+</div>
+<button @onclick="BuscarNumero" class="btn btn-primary">Buscar Número</button>
+
+@if (resultadoBusqueda != null)
+{
+    <div>
+        @if (resultadoBusqueda >= 0)
+        {
+            <p>El número @numeroABuscar se encontró en la posición @resultadoBusqueda .</p>
+        }
+        else
+        {
+            <p>El número @numeroABuscar no se encontró.</p>
+        }
+    </div>
+}
+
+@code {
+    private string inputArray = "";
+    private int numeroABuscar;
+    private int? resultadoBusqueda;
+
+    private void BuscarNumero()
+    {
+
+        int[] numeros = inputArray.Split(',').Select(int.Parse).ToArray();
+
+        resultadoBusqueda = BusquedaSecuencia(numeros, numeroABuscar);
+    }
+
+    private int? BusquedaSecuencia(int[] arreglo, int numero)
+    {
+        for (int i = 0; i < arreglo.Length; i++)
+        {
+            if (arreglo[i] == numero)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
