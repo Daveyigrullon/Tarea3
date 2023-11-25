@@ -1,0 +1,47 @@
+﻿@page "/ordenamientoburbuja"
+
+<h3>Ordenamiento Burbuja</h3>
+
+<div>
+    <label for="inputNumbers">Ingrese números separados por comas:</label>
+    <input type="text" id="inputNumbers" @bind="inputNumbers" />
+</div>
+<button @onclick="OrdenarArreglo" class="btn btn-primary">Ordenar Arreglo</button>
+
+@if (arregloOrdenado != null)
+{
+    <div>
+        <h4>Arreglo Ordenado:</h4>
+        <p>@string.Join(", ", arregloOrdenado)</p>
+    </div>
+}
+@code {
+    private string inputNumbers = "";
+    private int[] arregloOrdenado;
+
+    private void OrdenarArreglo()
+    {
+
+        int[] numeros = inputNumbers.Split(',').Select(int.Parse).ToArray();
+
+        int n = numeros.Length;
+        bool swapped;
+
+        do
+        {
+            swapped = false;
+            for (int i = 1; i < n; i++)
+            {
+                if (numeros[i - 1] > numeros[i])
+                {
+                    int temp = numeros[i - 1];
+                    numeros[i - 1] = numeros[i];
+                    numeros[i] = temp;
+                    swapped = true;
+                }
+            }
+        } while (swapped);
+
+        arregloOrdenado = numeros;
+    }
+}
