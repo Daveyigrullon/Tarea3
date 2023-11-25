@@ -1,0 +1,64 @@
+﻿@page "/calculator"
+
+<h1>Calculadora</h1>
+
+<div class="calculator">
+    <div class="input-group">
+        <label for="num1">Numero :</label>
+        <input id="num1" @bind="num1" class="form-control" placeholder="Ingrese el primer número" />
+    </div>
+    <div class="input-group">
+        <label for="num2">Numero :</label>
+        <input id="num2" @bind="num2" class="form-control" placeholder="Ingrese el segundo número" />
+    </div>
+    <div class="input-group">
+        <label for="operation">Operación:</label>
+        <select id="operation" @bind="selectedOperation" class="form-control">
+            <option value="suma">Suma</option>
+            <option value="resta">Resta</option>
+            <option value="multiplicacion">Multiplicación</option>
+            <option value="division">División</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <button @onclick="Calcular" class="btn btn-primary">Calcular</button>
+    </div>
+    <div class="result">
+        <p>Resultado: @resultado</p>
+    </div>
+</div>
+
+@code {
+    private double num1 = 0;
+    private double num2 = 0;
+    private string selectedOperation = "suma";
+    private double resultado = 0;
+
+    private void Calcular()
+    {
+        if (selectedOperation == "suma")
+        {
+            resultado = num1 + num2;
+        }
+        else if (selectedOperation == "resta")
+        {
+            resultado = num1 - num2;
+        }
+        else if (selectedOperation == "multiplicacion")
+        {
+            resultado = num1 * num2;
+        }
+        else if (selectedOperation == "division")
+        {
+            if (num2 != 0)
+            {
+                resultado = num1 / num2;
+            }
+            else
+            {
+                resultado = double.NaN;
+            }
+        }
+    }
+}
+
