@@ -1,0 +1,67 @@
+﻿@page "/numeroPrimo"
+
+<h3>Números </h3>
+
+
+<div>
+    <label for="inicio">Inicio:</label>
+    <input type="text" id="inicio" @bind="inicio" class="form-control" placeholder="Ingrese el primer número" />
+</div>
+<div>
+    <label for="fin">Fin:</label>
+    <input type="text" id="fin" @bind="fin" class="form-control" placeholder="Ingrese el primer número" />
+</div>
+<button @onclick="EncontrarPrimos" class="btn btn-primary">Encontrar Primos </button>
+
+@if (numerosPrimos != null && numerosPrimos.Any())
+{
+    <div>
+        <h4>Números Primos Encontrados:</h4>
+        <ul>
+            @foreach (var primo in numerosPrimos)
+            {
+                <li>@primo</li>
+            }
+        </ul>
+    </div>
+}
+
+@code {
+    private int inicio;
+    private int fin;
+    private List<int> numerosPrimos;
+
+    private void EncontrarPrimos()
+    {
+        numerosPrimos = new List<int>();
+
+        for (int num = inicio; num <= fin; num++)
+        {
+            if (EsPrimo(num))
+            {
+                numerosPrimos.Add(num);
+            }
+        }
+    }
+
+    private bool EsPrimo(int num)
+    {
+        if (num <= 1)
+        {
+            return false;
+        }
+
+        for (int i = 2; i <= Math.Sqrt(num); i++)
+        {
+            if (num % i == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+
+
